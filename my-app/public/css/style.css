@@ -1,0 +1,43 @@
+body {
+    background-color:#fefefe;
+}
+
+nav.navbar{
+    margin-bottom: 60px;
+}
+
+.navbar-brand {
+    font-size:24px;
+    font-weight:700;
+}
+
+.selectBox {
+    width:210px;
+}
+
+.form-group {
+    margin-top:10px;
+}
+.form-control {
+    margin:10px 0;
+}
+.bg-danger {
+    margin-top:20px;
+    color:red;
+    background-color: #fefefe !important;
+}
+.bg-info {
+    color:blue;
+    background-color: #fefefe !important;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+.modal-footer {
+    border-top: none;
+}
+.modal-body {
+    padding:17px 0 0 15px;
+}
+
