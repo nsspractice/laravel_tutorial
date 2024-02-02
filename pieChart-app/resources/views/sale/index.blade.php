@@ -7,14 +7,14 @@
         <div class="row">
             <div class="col-md-6">
 
-                <!-- 円グラフを表示するキャンバス -->
+                <!--  円グラフを表示するキャンバス -->
                 <canvas id="chart" width="400" height="400"></canvas>
 
-                <!-- 年を選択するセレクトボックス -->
+                <!--  年を選択するセレクトボックス -->
                 <div class="form-group">
-                    <label></label>
-                    <select class="form-control" v-model="year"@change="getSales">
-                        <option v-for="year in years" :value="year">@{{year}} 年</option>
+                    <label>販売年</label>
+                    <select class="form-control" v-model="year" @change="getSales">
+                        <option v-for="year in years" :value="year">@{{ year }} 年</option>
                     </select>
                 </div>
 
@@ -26,49 +26,52 @@
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
     <script>
 
-        new Vue({
-            el: '#app',
+        new Vue({ 
+            //Vueオブジェクトのインスタンスをnewで生成し、Vueアプリケーションの起動
+            el: '#app',　
+            //6行目のid="app"を指し、Vueアプリケーションの範囲、Vueの管轄領域を表します。タグ内部がすべてVueが適用。
             data: {
                 sales: [],
-                year: '{{date('Y')}}',
+                year: '{{ date('Y') }}',
                 years: [],
                 chart: null
             },
-            method: {
+            //Vueアプリケーション内で利用できるデータ（変数）を表します。
+            methods: {
                 getYears() {
 
-                    //販売年リストの取得
+                    //  販売年リストを取得 ・・・ ①
                     fetch('/ajax/sales/years')
                         .then(response => response.json())
                         .then(data => this.years = data);
-                    
+
                 },
                 getSales() {
 
-                    //販売実績データを取得
-                    fetch('/ajax/sales?year='+this.year)
+                    //  販売実績データを取得 ・・・ ②
+                    fetch('/ajax/sales?year='+ this.year)
                         .then(response => response.json())
                         .then(data => {
-                            
-                            if(this.chart){ //チャートが存在していれば初期化
+
+                            if(this.chart) { // チャートが存在していれば初期化
 
                                 this.chart.destroy();
 
                             }
 
-                            //lodashでデータを加工
-                            const groupedSales = _.groupBy(data, 'company_name') //会社ごとにグループ化
+                            //  lodashでデータを加工 ・・・ ③
+                            const groupedSales = _.groupBy(data, 'company_name'); // 会社ごとにグループ化
                             const amounts = _.map(groupedSales, companySales => {
 
-                                return _.sumBy(companySales, 'amount'); //合計金額
+                                return _.sumBy(companySales, 'amount'); // 金額合計
 
                             });
-                            const companyNames = _.keys(groupedSales); //会社名
+                            const companyNames = _.keys(groupedSales); // 会社名
 
-                            //円グラフを描画
+                            //  円グラフを描画 ・・・ ④
                             const ctx = document.getElementById('chart').getContext('2d');
-                            this.chart = new Chart(ctx,{
-                                type: 'pie',
+                            this.chart = new Chart(ctx, {
+                                type: 'doughnut',
                                 data: {
                                     datasets: [{
                                         data: amounts,
@@ -87,7 +90,7 @@
                                 options: {
                                     title: {
                                         display: true,
-                                        fontsize: 45,
+                                        fontSize: 45,
                                         text: '売上統計'
                                     },
                                     tooltips: {
@@ -95,17 +98,20 @@
                                             label(tooltipItem, data) {
 
                                                 const datasetIndex = tooltipItem.datasetIndex;
-                                                const index =  tooltipItem.index;
+                                                const index = tooltipItem.index;
                                                 const amount = data.datasets[datasetIndex].data[index];
                                                 const amountText = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                                                 const company = data.labels[index];
-                                                return ' '+ company + ' '+amountText + ' 円';
+                                                return ' '+ company +' '+amountText +' 円';
+
                                             }
                                         }
                                     }
                                 }
                             });
-                    });
+
+                        });
+
                 }
             },
             mounted() {
@@ -117,6 +123,5 @@
         });
 
     </script>
-
 </body>
 </html>

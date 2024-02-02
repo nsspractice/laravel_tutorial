@@ -19,9 +19,20 @@ use App\Http\Controllers\Ajax\SalesController;
 Route::get('sales',[SaleController::class,'index']);
 
 //売上データ取得
-Route::get('ajax/sales',[Ajax\SalesController::class,'index']);
+Route::get('ajax/sales',[SalesController::class,'index']);
 // Route::get('ajax/sales','Ajax\SalesController@index');
 
 //年データ取得（セレクトボックス用）
-// Route::get('ajax/sales/years',[SalesController::class,'years']);
+Route::get('ajax/sales/years',[SalesController::class,'years']);
 // Route::get('ajax/sales/years','Ajax\SalesController@years');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
