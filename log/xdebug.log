@@ -1,0 +1,125 @@
+[15] Log opened at 2024-01-16 05:46:32.276143
+[15] [Config] INFO: Control socket set up succesfully: '@xdebug-ctrl.15'
+[15] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[15] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Invalid argument.
+[15] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[42] Log opened at 2024-01-16 05:46:38.576798
+[42] [Config] INFO: Control socket set up succesfully: '@xdebug-ctrl.42'
+[42] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[42] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Invalid argument.
+[42] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[42] Log closed at 2024-01-16 05:46:38.589372
+
+[285] Log opened at 2024-01-16 05:46:56.076199
+[285] [Config] INFO: Control socket set up succesfully: '@xdebug-ctrl.285'
+[285] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[285] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Invalid argument.
+[285] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[285] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[285] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Invalid argument.
+[285] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[285] Log closed at 2024-01-16 05:46:56.510910
+
+[290] Log opened at 2024-01-16 05:46:56.805422
+[290] [Config] INFO: Control socket set up succesfully: '@xdebug-ctrl.290'
+[290] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[290] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Invalid argument.
+[290] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[290] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[290] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Invalid argument.
+[290] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[290] Log closed at 2024-01-16 05:46:57.080687
+
+[295] Log opened at 2024-01-16 05:46:57.411219
+[295] [Config] INFO: Control socket set up succesfully: '@xdebug-ctrl.295'
+[295] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[295] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Invalid argument.
+[295] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[295] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[295] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Invalid argument.
+[295] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[295] Log closed at 2024-01-16 05:46:57.694812
+
+[15] Log closed at 2024-01-16 05:46:57.752632
+
+[305] Log opened at 2024-01-16 06:16:02.849058
+[305] [Config] INFO: Control socket set up succesfully: '@xdebug-ctrl.305'
+[305] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[305] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Invalid argument.
+[305] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[305] Log closed at 2024-01-16 06:16:03.029924
+
+[15] Log opened at 2024-01-16 06:39:43.194695
+[15] [Config] INFO: Control socket set up succesfully: '@xdebug-ctrl.15'
+[15] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[15] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Success.
+[15] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[42] Log opened at 2024-01-16 06:39:45.759387
+[42] [Config] INFO: Control socket set up succesfully: '@xdebug-ctrl.42'
+[42] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[42] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: No such file or directory.
+[42] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[42] Log closed at 2024-01-16 06:39:45.766638
+
+[15] Log closed at 2024-01-16 06:39:49.925303
+
+[54] Log opened at 2024-01-16 08:09:31.521099
+[54] [Config] INFO: Control socket set up succesfully: '@xdebug-ctrl.54'
+[54] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[54] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Success.
+[54] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[81] Log opened at 2024-01-16 08:09:33.744500
+[81] [Config] INFO: Control socket set up succesfully: '@xdebug-ctrl.81'
+[81] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[81] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: No such file or directory.
+[81] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[81] Log closed at 2024-01-16 08:09:33.758640
+
+[545] Log opened at 2024-01-16 08:09:49.621345
+[545] [Config] INFO: Control socket set up succesfully: '@xdebug-ctrl.545'
+[545] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[545] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Inappropriate ioctl for device.
+[545] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[545] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[545] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Success.
+[545] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[545] Log closed at 2024-01-16 08:09:49.969649
+
+[548] Log opened at 2024-01-16 08:09:50.347488
+[548] [Config] INFO: Control socket set up succesfully: '@xdebug-ctrl.548'
+[548] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[548] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Inappropriate ioctl for device.
+[548] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[548] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[548] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Success.
+[548] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[548] Log closed at 2024-01-16 08:09:50.578226
+
+[551] Log opened at 2024-01-16 08:09:50.952043
+[551] [Config] INFO: Control socket set up succesfully: '@xdebug-ctrl.551'
+[551] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[551] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Inappropriate ioctl for device.
+[551] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[551] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[551] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Success.
+[551] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[551] Log closed at 2024-01-16 08:09:51.200187
+
+[54] Log closed at 2024-01-16 08:09:51.265230
+
+[16] Log opened at 2024-01-18 04:51:20.978763
+[16] [Config] INFO: Control socket set up succesfully: '@xdebug-ctrl.16'
+[16] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[16] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Inappropriate ioctl for device.
+[16] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[16] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[16] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Success.
+[16] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[16] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[16] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Success.
+[16] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[16] [Step Debug] INFO: Connecting to configured address/port: host.docker.internal:9012.
+[16] [Step Debug] WARN: Creating socket for 'host.docker.internal:9012', getaddrinfo: Success.
+[16] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9012 (through xdebug.client_host/xdebug.client_port).
+[16] Log closed at 2024-01-18 04:51:21.234348
+
