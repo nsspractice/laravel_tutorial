@@ -13,7 +13,7 @@
                 <!--  年を選択するセレクトボックス -->
                 <div class="form-group">
                     <label>販売年</label>
-                    <select class="form-control" v-model="year" @change="getSales">
+                    <select class="form-control" v-model="year" @change="getSales"> {{-- v-on:changeの省略 --}}
                         <option v-for="year in years" :value="year">@{{ year }} 年</option>
                     </select>
                 </div>
@@ -41,15 +41,20 @@
                 getYears() {
 
                     //  販売年リストを取得 ・・・ ①
-                    fetch('/ajax/sales/years')
-                        .then(response => response.json())
-                        .then(data => this.years = data);
+                    fetch('/ajax/sales/years') //非同期通信を開始 
+                        .then(response => response.json()) //HTTPレスポンスをJson形式に変換
+                        .then(data => {
+                                this.years = data.slice().sort(function(a,b){
+                                    return a-b;
+                                });
+                            // this.years = data.slice().sort((a,b) => a-b); JavaScriptにはorderByがないため、sort()メソッドを使用
+                        }); //Json形式に変換されたdataをVueインスタンスのyearsプロパティに設定
 
                 },
                 getSales() {
 
                     //  販売実績データを取得 ・・・ ②
-                    fetch('/ajax/sales?year='+ this.year)
+                    fetch('/ajax/sales/?year='+ this.year)
                         .then(response => response.json())
                         .then(data => {
 
@@ -61,20 +66,20 @@
 
                             //  lodashでデータを加工 ・・・ ③
                             const groupedSales = _.groupBy(data, 'company_name'); // 会社ごとにグループ化
-                            const amounts = _.map(groupedSales, companySales => {
-
-                                return _.sumBy(companySales, 'amount'); // 金額合計
+                            const amounts = _.map(groupedSales, companySales => { //新しい配列として取得する
+                                return _.sumBy(companySales, 'amount'); // 販売金額の合計を出し、値をcompanySalesに返す
 
                             });
-                            const companyNames = _.keys(groupedSales); // 会社名
+                            const companyNames = _.keys(groupedSales); // 会社名が格納されている
 
                             //  円グラフを描画 ・・・ ④
                             const ctx = document.getElementById('chart').getContext('2d');
                             this.chart = new Chart(ctx, {
-                                type: 'doughnut',
+                                type: 'doughnut', //グラフの種類
                                 data: {
                                     datasets: [{
-                                        data: amounts,
+                                        data: amounts, //販売金額の合計が配列の上から表示される
+                                        borderColor: 'black',
                                         backgroundColor: [
                                             'rgb(255, 99, 132)',
                                             'rgb(255, 159, 64)',
@@ -85,7 +90,7 @@
                                             'rgb(201, 203, 207)'
                                         ]
                                     }],
-                                    labels: companyNames
+                                    labels: companyNames //x軸に表示される、会社の名前が配列の上からラベル付けされる
                                 },
                                 options: {
                                     title: {
@@ -100,9 +105,9 @@
                                                 const datasetIndex = tooltipItem.datasetIndex;
                                                 const index = tooltipItem.index;
                                                 const amount = data.datasets[datasetIndex].data[index];
-                                                const amountText = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                                                const amountText = Math.round((amount/1000).toLocaleString()); //Math.roundで四捨五入
                                                 const company = data.labels[index];
-                                                return ' '+ company +' '+amountText +' 円';
+                                                return ' '+ company +' '+amountText +' 千円';
 
                                             }
                                         }

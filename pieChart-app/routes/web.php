@@ -24,6 +24,7 @@ Route::get('ajax/sales',[SalesController::class,'index']);
 
 //年データ取得（セレクトボックス用）
 Route::get('ajax/sales/years',[SalesController::class,'years']);
+// Route::get('ajax/sales/years',[SalesController::class,'years']);
 // Route::get('ajax/sales/years','Ajax\SalesController@years');
 Auth::routes();
 
