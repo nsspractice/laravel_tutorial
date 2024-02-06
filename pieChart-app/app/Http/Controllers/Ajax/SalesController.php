@@ -16,6 +16,13 @@ class SalesController extends Controller
 
     }
 
+    public function lines() {
+
+        return Sale::select('company_name','amount','year')
+            ->get();
+
+    }
+
     public function years() { 
 
         return Sale::select('year') //Saleモデルからyear列を取得

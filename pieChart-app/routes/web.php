@@ -26,6 +26,9 @@ Route::get('ajax/sales',[SalesController::class,'index']);
 Route::get('ajax/sales/years',[SalesController::class,'years']);
 // Route::get('ajax/sales/years',[SalesController::class,'years']);
 // Route::get('ajax/sales/years','Ajax\SalesController@years');
+
+Route::get('ajax/sales/lines',[SalesController::class,'lines']);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
