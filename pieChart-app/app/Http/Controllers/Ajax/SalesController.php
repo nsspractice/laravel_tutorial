@@ -26,7 +26,8 @@ class SalesController extends Controller
     public function years() { 
 
         return Sale::select('year') //Saleモデルからyear列を取得
-            ->groupBy('year') //year列でグループ化
+            ->distinct()
+            // ->groupBy('year') //year列でグループ化
             ->pluck('year'); //year列の値を抽出して配列として返す
     }
 }
