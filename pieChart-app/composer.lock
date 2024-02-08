@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "295871ddd192ba35e61a71d0ff6653f3",
+    "content-hash": "e413a70de66cdd6a0cef170f0723429a",
     "packages": [
         {
             "name": "brick/math",
@@ -5713,6 +5713,69 @@
                 }
             ],
             "time": "2022-03-08T17:03:00+00:00"
+        },
+        {
+            "name": "wdev-rs/laravel-datagrid",
+            "version": "0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wdev-rs/laravel-datagrid.git",
+                "reference": "8058d00d22e6dd028eae939aec202cc86ecee1f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wdev-rs/laravel-datagrid/zipball/8058d00d22e6dd028eae939aec202cc86ecee1f0",
+                "reference": "8058d00d22e6dd028eae939aec202cc86ecee1f0",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0",
+                "php": ">=7.4|^8.0"
+            },
+            "require-dev": {
+                "daniel-werner/php-quality-tools": "^2.0",
+                "liip/rmt": "^1.6",
+                "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0|^8.0|^9.0",
+                "phpunit/phpunit": "^8.0|^9.0|^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "WdevRs\\LaravelDatagrid\\LaravelDatagridServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaravelDatagrid": "WdevRs\\LaravelDatagrid\\LaravelDatagridFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "WdevRs\\LaravelDatagrid\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Werner",
+                    "email": "daniel@wdev.rs",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel integration for Grid.js server side processing",
+            "homepage": "https://github.com/wdev-rs/laravel-datagrid",
+            "keywords": [
+                "laravel-datagrid",
+                "wdev-rs"
+            ],
+            "support": {
+                "issues": "https://github.com/wdev-rs/laravel-datagrid/issues",
+                "source": "https://github.com/wdev-rs/laravel-datagrid/tree/0.5.0"
+            },
+            "time": "2023-06-16T09:29:31+00:00"
         },
         {
             "name": "webmozart/assert",

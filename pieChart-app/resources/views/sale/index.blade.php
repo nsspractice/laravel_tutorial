@@ -1,11 +1,21 @@
 <html>
 <head>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css">
+    <style>
+        .content {
+            padding: 20px 100px 60px 100px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div id="app" class="container p-3">
+    <div id="app" class="container-fluid">
         <div class="row">
-            <div class="col-md-6 col-xs-12">
+            <div class="col-md-6 col-xs-12 content">
+                <h1>年度別売上</h1>
                 <!--  年を選択するセレクトボックス -->
                 <div class="form-group">
                     <label>販売年</label>{{-- v-modelで選択された年はyearプロパティに格納--}}
@@ -13,77 +23,43 @@
                         <option v-for="year in years" :value="year">@{{ year }} 年</option>
                     </select>
                 </div>
-            </div>
-            <div class="col-md-6 col-xs-12"></div>
-            <div class="col-md-6 col-xs-12">
                 <!--  円グラフを表示するキャンバス -->
                 <canvas id="pieChart" width="250" height="250"></canvas>
             </div>    
                                 
-            <div class="col-md-6 col-xs-12">
+            <div class="col-md-6 col-xs-12 content">
+                <h1>会社別年度推移</h1>
                 <!--  折れ線グラフを表示するキャンバス -->
-                <canvas id="lineChart" width="250" height="250"></canvas>
+                <canvas id="lineChart" width="250" height="300"></canvas>
             </div>
 
-            <div class="col-md-6 col-xs-12">
-                <!--  折れ線グラフを表示するキャンバス -->
+            <div class="col-md-6 col-xs-12 content">
+                <h1>総売上推移</h1>
+                <!--  積み上げ棒グラフを表示するキャンバス -->
                 <canvas id="barChart" width="250" height="250"></canvas>
             </div>
-            <div class="col-md-6 col-xs-12">
-                <table class="" width="539" height="100">
-                    <thead>
-                        <th>会社名/年度別</th>
-                        <th v-for="year in years":value="year">@{{ year }} 年</th>
-                        <th>会社別総売上</th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>大黒天</td>
-                            <td v-for="sale in sales[0]":value="sale">@{{ sale }}</td>
-                        </tr>
-                        <tr>
-                            <td>寿老人</td>
-                            <td v-for="sale in sales[1]":value="sale">@{{ sale }}</td>
-                        </tr>
-                        <tr>
-                            <td>布袋尊</td>
-                            <td v-for="sale in sales[2]":value="sale">@{{ sale }}</td>
-                        </tr>
-                        <tr>
-                            <td>弁財天</td>
-                            <td v-for="sale in sales[3]":value="sale">@{{ sale }}</td>
-                        </tr>
-                        <tr>
-                            <td>恵比寿</td>
-                            <td v-for="sale in sales[4]":value="sale">@{{ sale }}</td>
-                        </tr>
-                        <tr>
-                            <td>毘沙門天</td>
-                            <td v-for="sale in sales[5]":value="sale">@{{ sale }}</td>
-                        </tr>
-                        <tr>
-                            <td>福禄寿</td>
-                            <td v-for="sale in sales[6]":value="sale">@{{ sale }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="col-md-6 col-xs-12 content">
+                <h1>集計表</h1>
+                <!-- 集計表を表示するグリッド-->
+                <div id='table' class="table" width="250" height="250"></div>
             </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
     <script>
-
         var app = new Vue({ 
             //Vueオブジェクトのインスタンスをnewで生成し、Vueアプリケーションの起動
-            el: '#app',　
+            el: '#app',
             //6行目のid="app"を指し、Vueアプリケーションの範囲、Vueの管轄領域を表します。タグ内部がすべてVueが適用。
             data: {
                 sales: [],
                 year: '{{ date('Y') }}',
                 years: [],
                 companies: [],
+                grid: null,
                 pieChart: null
             },
             //Vueアプリケーション内で利用できるデータ（変数）を表します。
@@ -105,31 +81,59 @@
                     fetch('/ajax/sales/lines')
                     .then(response => response.json())
                     .then(data => {
-                        const groups = _.orderBy(data,group => {
+                        const groups = _.orderBy(data,group => { //会社名、年度の順で並び替える
                             return [group.company_name, group.year];
                         });
-                        console.log(groups);
-
                         const groupCompany = _.groupBy(groups,'company_name'); //会社の名前でグループ化
-                        console.log(groupCompany);
-
+                        const gridRows = _.keys(groupCompany); //会社名の配列作成
                         const groupYear = _.groupBy(groups,'year'); //年度でグループ化
-                        console.log(groupYear);
+                        const gridColumns = _.keys(groupYear); //年度の配列作成
 
                         const amountsCompany = _.map(groupCompany, group=>{ //会社毎の総売上
                             return _.sumBy(group,'amount');
                         });
-                        console.log(amountsCompany);
-
                         const amountsYear = _.map(groupYear, group => {　   //年度別の総売上
                             return _.sumBy(group,'amount');
+                        });                        
+                        const amountsAll = _.sumBy(groups,'amount');//売上総額
+                        const groupsCY = _.groupBy(groups,group => {
+                            return [group.company_name, group.year];
                         });
-                        console.log(amountsYear);
 
-                        const amounts = _.map(groupCompany,group => { 
+                        const amounts = _.map(groupsCY,group => {
                             return _.sumBy(group, 'amount');
                         });
                         console.log(amounts);
+
+                        const amountsChunked = _.chunk(amounts,3);
+
+                        for (let i = 0; i < amountsChunked.length; i++) {
+                            amountsChunked[i].push(amountsCompany[i]); 
+                        }
+                        for (let i = 0; i < amountsChunked.length; i++) {
+                            amountsChunked[i].unshift(gridRows[i]); 
+                        }
+                        amountsYear.unshift('年度総売上');//年度別の総売上を足す
+                        amountsYear.push(amountsAll);
+                        amountsChunked.push(amountsYear);
+                        console.log(amountsChunked);
+                    
+
+                        gridColumns.push('会社総売上'); //合計値というカラムを配列に足す
+                        gridColumns.unshift('会社名');
+                        new gridjs.Grid({ 
+                                columns: gridColumns,
+                                data: amountsChunked,
+                                style: {
+                                    table: {
+                                        border: '3px solid #ccc'
+                                    },
+                                    th: {
+                                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                                    }
+                                }   
+                        }).render(document.getElementById('table'));
+                        
                     });
                 },
                 getSales1() {
@@ -157,7 +161,7 @@
 
                             //  円グラフを描画 ・・・ ④
                             const ctx1 = document.getElementById('pieChart').getContext('2d');
-                            this.pieChart = new Chart(ctx1, {
+                            new Chart(ctx1, {
                                 type: 'pie', //グラフの種類
                                 data: {
                                     datasets: [{
@@ -175,11 +179,6 @@
                                     labels: companyNames //x軸に表示される、会社の名前が配列の上からラベル付けされる
                                 },
                                 options: {
-                                    title: {
-                                        display: true,
-                                        fontSize: 45,
-                                        text: '年度推移'
-                                    },
                                     tooltips: { //tooltipsにツールチップに関する設定が含まれる
                                         callbacks: {  //ツールチップが表示されると、このコールバック関数が働きます。
                                             label(tooltipItem, data) { //ツールチップをラベルを設定するための引数であり変数
@@ -214,6 +213,7 @@
                         });
                         const amountsChunked = _.chunk(amounts,3);
                         this.sales = amountsChunked;
+                        // 新しい配列を作成して、すべての値を1000で割って格納する
 
                         const groupedSales = _.groupBy(groups, 'company_name');
                         const companyNames = _.keys(groupedSales);
@@ -221,7 +221,7 @@
 
                             // 折れ線グラフを描画
                             const ctx2 = document.getElementById('lineChart').getContext('2d');
-                            this.lineChart = new Chart(ctx2,{
+                            new Chart(ctx2,{
                                 type: 'line',
                                 data: {
                                     datasets: 
@@ -271,10 +271,26 @@
                                     labels: this.years
                                 },
                                 options: {
-                                    title:{
-                                        display: true,
-                                        fontSize: 45,
-                                        text: '売上推移'
+                                    scales: {
+                                        xAxes: [{
+                                            scaleLabel: {
+                                                display:true,
+                                                labelString: "(年)"
+                                            }
+                                        }],
+                                        yAxes: [{
+                                            ticks: {
+                                                // 目盛を千円単位にする
+                                                callback: function(value, index, values) {
+                                                    return value/1000;
+                                                }
+
+                                            },
+                                            scaleLabel: {
+                                                display:true,
+                                                labelString: "(千円)"
+                                            }
+                                        }]
                                     },
                                     tooltips: { //tooltipsにツールチップに関する設定が含まれる
                                         callbacks: {  //ツールチップが表示されると、このコールバック関数が働きます。
@@ -314,7 +330,7 @@
 
                             // 積み上げ棒グラフを描画
                             const ctx3 = document.getElementById('barChart').getContext('2d');
-                            this.barChart = new Chart(ctx3,{
+                            new Chart(ctx3,{
                                 type: 'bar',
                                 data: {
                                     datasets: 
@@ -357,23 +373,30 @@
                                     labels: this.years
                                 },
                                 options: {
-                                    title:{
-                                        display: true,
-                                        fontSize: 45,
-                                        text: '売上推移'
-                                    },
                                     scales: {
-                                        yAxes:[
-                                            {
-                                                stacked: true,
-                                                xbarThickness: 16
+                                        xAxes: [{
+                                            stacked: true,
+                                            xbarThickness: 16,
+                                            scaleLabel: {
+                                                display:true,
+                                                labelString: "(年)",
+                                          
                                             }
-                                        ],
-                                        xAxes:[
-                                            {
-                                                stacked: true
+                                        }],
+                                        yAxes: [{
+                                            stacked: true,
+                                            ticks: {
+                                                // 目盛を千円単位にする
+                                                callback: function(value, index, values) {
+                                                    return (value/1000).toLocaleString();
+                                                }
+
+                                            },
+                                            scaleLabel: {
+                                                display:true,
+                                                labelString: "(千円)",
                                             }
-                                        ]
+                                        }]
                                     },
                                     tooltips: { //tooltipsにツールチップに関する設定が含まれる
                                         callbacks: {  //ツールチップが表示されると、このコールバック関数が働きます。
@@ -395,8 +418,8 @@
                 },
             },
             mounted() {
-                this.getSales();
                 this.getYears();
+                this.getSales();
                 this.getSales1();
                 this.getSales2();
                 this.getSales3();
