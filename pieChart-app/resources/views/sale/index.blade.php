@@ -129,7 +129,15 @@
                                         border: '3px solid #ccc'
                                     },
                                     th: {
+                                        fontSize: '14px',
+                                        padding: '10px 5px',
+                                        margin: '0',
                                         backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                                    },
+                                    td: {
+                                        fontSize: '14px',
+                                        padding: '10px 5px',
+                                        margin: '0',
                                     }
                                 }   
                         }).render(document.getElementById('table'));
