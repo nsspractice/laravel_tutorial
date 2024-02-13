@@ -1,0 +1,45 @@
+{
+  "name": "leaflet.sync",
+  "version": "0.2.4",
+  "description": "Sync two or more Leaflet map instances",
+  "main": "L.Map.Sync.js",
+  "directories": {
+    "test": "test"
+  },
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "lint": "eslint L.Map.Sync.js examples/* test/*",
+    "spec": "mocha-chrome test/index.html",
+    "test": "npm run lint && npm run spec",
+    "release": "mversion patch -m",
+    "release-minor": "mversion minor -m"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jieter/Leaflet.Sync.git"
+  },
+  "keywords": [
+    "Leaflet",
+    "map",
+    "geo",
+    "sync"
+  ],
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-leaflet": "0.0.13",
+    "eslint": "^6.0.0",
+    "eslint-plugin-html": "^6.0.0",
+    "leaflet": "^1.7.1",
+    "mocha": "^5.2.0",
+    "mocha-chrome": "^1.1.0",
+    "mversion": "^2.0.0"
+  },
+  "author": "Bjorn Sandvik",
+  "contributors": [
+    {
+      "name": "Bails Pierre",
+      "email": "bails@getredbird.com"
+    }
+  ],
+  "readmeFilename": "README.md"
+}
