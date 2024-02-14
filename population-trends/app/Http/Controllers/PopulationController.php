@@ -7,7 +7,7 @@ use App\Models\BasePopulation;
 
 class PopulationController extends Controller
 {
-    public function index(){
-        $basePopulation = BasePopulation::all();
+    public function basePopulation(){
+        return BasePopulation::all();
     }
 }

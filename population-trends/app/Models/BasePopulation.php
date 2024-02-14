@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Area;
 
 class BasePopulation extends Model
 {
@@ -14,4 +16,8 @@ class BasePopulation extends Model
     // 登録を許可しないカラム
     protected $guarded = [];
 
+    public function area():BelongsTo
+    {
+        return $this->belongsTo(Area::class,'JUSHOCD','JUSHOCD');
+    }
 }

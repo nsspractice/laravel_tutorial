@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string("JUSHOCD");
             $table->string("CHIIKINAME");
             $table->string("JUSHO");
-            $table->float("IDO",8,6);
+            $table->float("IDO",8,6); //合計8桁、小数6桁を表示
             $table->float("KEIDO",9,6);
         });
     }
