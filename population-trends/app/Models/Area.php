@@ -20,7 +20,8 @@ class Area extends Model
     public function basePopulation():HasMany
     {
         // return $this->hasMany(BasePopulation::class);
-        return $this->hasMany(BasePopulation::class, 'JUSHOCD', 'JUSHOCD');
+        return $this->hasMany(BasePopulation::class, 'JUSHOCD', 'JUSHOCD')
+            ->hasMany(BasePopulation::class,'CHIIKIKBN','CHIIKIKBN');
     }
 
 }

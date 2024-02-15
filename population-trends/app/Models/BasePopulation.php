@@ -18,6 +18,8 @@ class BasePopulation extends Model
 
     public function area():BelongsTo
     {
-        return $this->belongsTo(Area::class,'JUSHOCD','JUSHOCD');
+        return $this->belongsTo(Area::class,'JUSHOCD','JUSHOCD')
+            ->belongsTo(Area::class,'CHIIKIKBN','CHIIKIKBN');
     }
+
 }

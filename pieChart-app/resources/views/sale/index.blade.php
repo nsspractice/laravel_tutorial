@@ -96,6 +96,7 @@
                             return _.sumBy(group,'amount');
                         });                        
                         const amountsAll = _.sumBy(groups,'amount');//売上総額
+                        
                         const groupsCY = _.groupBy(groups,group => {
                             return [group.company_name, group.year];
                         });

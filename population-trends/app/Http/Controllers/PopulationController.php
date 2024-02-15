@@ -7,7 +7,13 @@ use App\Models\BasePopulation;
 
 class PopulationController extends Controller
 {
-    public function basePopulation(){
-        return BasePopulation::all();
+    public function year(Request $request) {
+        
+        $year = BasePopulation::select('YEAR')
+            ->distinct('YEAR')
+            ->pluck('YEAR');
+
+        return $year;
+
     }
 }
