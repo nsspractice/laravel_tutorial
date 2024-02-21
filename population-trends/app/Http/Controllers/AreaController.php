@@ -13,6 +13,9 @@ class AreaController extends Controller
         $areaPop = BasePopulation::select([
             'b.id',
             'b.CHIIKINAME',
+            'b.5SAI',
+            'b.3SEDAI',
+            'b.YEAR',
             'b.POPLATION',
             'a.IDO',
             'a.KEIDO',
@@ -25,5 +28,31 @@ class AreaController extends Controller
         ->get();
 
         return $areaPop;
+    }
+
+    public function yearData(Request $request){
+
+        $yearData = BasePopulation::select([
+            'ba.JUSHOCD',
+            'ba.CHIIKINAME',
+            'ar.IDO',
+            'ar.KEIDO',
+        ])
+        ->selectRaw('SUM(ba.POPLATION) as population')
+        ->from('area as ar')
+        ->leftjoin('base_population as ba',function($join){
+            $join->on('ba.JUSHOCD', '=', 'ar.JUSHOCD')
+                 ->on('ba.CHIIKIKBN', '=', 'ar.CHIIKIKBN');
+        })
+        ->where('ba.YEAR', '=', $request->year)
+        ->orWhere(function($query) {
+            $query->wherein('ba.5SAI', ['00'])
+                  ->orWherein('ba.3SEDAI', []);
+        })        
+        ->groupBy('ba.JUSHOCD','ba.CHIIKINAME','ar.IDO','ar.KEIDO')
+        ->get();
+
+        return $yearData;
+        
     }
 }

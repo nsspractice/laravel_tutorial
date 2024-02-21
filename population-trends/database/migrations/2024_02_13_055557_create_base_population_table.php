@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('JUSHOCD');
             $table->string('CHIIKINAME');
             $table->string('JUSHO');
-            $table->integer('5SAI');
+            $table->string('5SAI');
             $table->string('3SEDAI');
             $table->integer('YEAR' );
             $table->boolean('SEX' );
