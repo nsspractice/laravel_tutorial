@@ -21,13 +21,12 @@ Route::get('/',function(){
     return view('leaflet');
 });
 
-//areaとbase_populatoinの結合データを持ってくる
-Route::get('/areaPop', [AreaController::class,'areaPop']);
-Route::get('/yearData',[AreaController::class,'yearData']);
-
+// //areaとbase_populatoinの結合データを持ってくる
+// Route::get('/areaPop', [AreaController::class,'areaPop']);
+Route::get('/popData',[AreaController::class,'popData']);
 Route::get('/year',[PopulationController::class,'year']);
-Route::get('/5sai',[PopulationController::class,'get5SAI']);
-Route::get('/3sedai',[PopulationController::class,'get3SEDAI']);
+Route::get('/fiveage',[PopulationController::class,'get5SAI']);
+Route::get('/sedai',[PopulationController::class,'get3SEDAI']);
 
 
 
