@@ -26,25 +26,24 @@
           </div>
           <div class="form-content">
               <div class="form-radio">
-                <p><input type="radio" name="options" value="5sai" checked>年齢5歳階級</p>
-                <p><input type="radio" name="options" value="3sedai">3世代区分</p>
+                <p><input type="radio" name="options" value="5age" onchange="toggleCheckboxes(this)" checked>年齢5歳階級</p>
+                <p><input type="radio" name="options" value="3sedai" onchange="toggleCheckboxes(this)">3世代区分</p>
               </div>
 
-            <div class="5age-group mt-1" id="5age-group">
+            <div class="5age-group" id="5age-group">
               <div v-for="(fiveage, index) in fiveages" class="fiveage-check" :key="index">
                 <input type="checkbox" :id="'fiveage'+index" v-model="fiveageChecked" :value="index * 5" @change="getMethod">
                 <label :for="'fiveage'+index">@{{ fiveage }}</label>
               </div>
             </div>
 
-            <div class="3sedai-group mt-1">
-
+            <div class="3sedai-group" id="3sedai-group">
               <div v-for="(sedai, index) in sedais" class="sedai-check" :key="index">
                 <input type="checkbox" :id="'sedai'+index" v-model="sedaiChecked" :value="index + 1" @change="getMethod">
                 <label :for="'sedai'+index">@{{ sedai }}</label>
-              </div>
-                
+              </div>  
             </div>
+
           </div>
 
         </div>
@@ -82,35 +81,10 @@
 {{-- Bootstrap CDN --}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 
-{{-- <script>
-
-<label>
-      <input type="radio" name="options" value="option2" onchange="toggleCheckboxes(this)"> Option 2
-    </label>
-
-    <div id="checkboxes1" class="checkboxes">
-      <label><input type="checkbox" name="checkbox1"> Checkbox 1</label>
-      <label><input type="checkbox" name="checkbox2"> Checkbox 2</label>
-      <label><input type="checkbox" name="checkbox3"> Checkbox 3</label>
-    </div>
-
-        function toggleCheckboxes(radio) {
-        var checkboxes1 = document.getElementById('5age-group');
-        var checkboxes2 = document.getElementById('3sedai-group');
-
-        if (radio.value === 'option1') {
-            checkboxes1.style.display = 'block';
-            checkboxes2.style.display = 'none';
-        } else if (radio.value === 'option2') {
-            checkboxes1.style.display = 'none';
-            checkboxes2.style.display = 'block';
-        }
-    }
-</script> --}}
 <script>
 
     //ロード時にマーカーを全削除する
-    // window.addEventListener('unload', function(e) {
+    // window.addEventListener('beforeunload', function(e) {
     //   let indexDel = 0;
     //   while(indexDel < this.markerLeft.length){
     //     this.map_left.removeLayer(this.markerLeft[indexDel]);
@@ -118,6 +92,18 @@
     //     indexDel++;
     //   }
     // });
+
+    function toggleCheckboxes(radio) {
+      var checkboxes1 = document.getElementById('5age-group');
+      var checkboxes2 = document.getElementById('3sedai-group');
+      if (radio.value === '5age') {
+          checkboxes1.style.display = 'block';
+          checkboxes2.style.display = 'none';
+      } else if (radio.value === '3sedai') {
+          checkboxes1.style.display = 'none';
+          checkboxes2.style.display = 'block';
+      }
+    }
 
     var app = new Vue({
             el: '#app',

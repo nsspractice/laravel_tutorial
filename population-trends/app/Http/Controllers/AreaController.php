@@ -31,7 +31,7 @@ class AreaController extends Controller
     // }
     public function mapOptions() {
         $average = Area::selectRaw('AVG(IDO) AS AvgIDO,AVG(KEIDO) AS AvgKEIDO')
-        ->from('area')
+        ->from('area_code')
         ->get();
 
         return $average;
@@ -46,7 +46,7 @@ class AreaController extends Controller
             'ar.KEIDO',
         ])
         ->selectRaw('SUM(ba.POPLATION) as population')
-        ->from('area as ar')
+        ->from('area_code as ar')
         ->leftjoin('base_population as ba',function($join){
             $join->on('ba.JUSHOCD', '=', 'ar.JUSHOCD')
                  ->on('ba.CHIIKIKBN', '=', 'ar.CHIIKIKBN');

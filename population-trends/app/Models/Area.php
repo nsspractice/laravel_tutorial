@@ -11,7 +11,7 @@ class Area extends Model
 {
     use HasFactory;
 
-    protected $table = 'area';
+    protected $table = 'area_code';
 
     // 登録を許可しないカラム
     protected $guarded = [];

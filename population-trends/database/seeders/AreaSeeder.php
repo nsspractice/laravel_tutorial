@@ -16,7 +16,7 @@ class AreaSeeder extends Seeder
      */
     public function run()
     {
-        $file = new \SplFileObject('database/seeders/csv/area.csv');
+        $file = new \SplFileObject('database/seeders/csv/area_code.csv');
 
         $file->setFlags(
             \SplFileObject::READ_CSV |
