@@ -29,6 +29,13 @@ class AreaController extends Controller
 
     //     return $areaPop;
     // }
+    public function mapOptions() {
+        $average = Area::selectRaw('AVG(IDO) AS AvgIDO,AVG(KEIDO) AS AvgKEIDO')
+        ->from('area')
+        ->get();
+
+        return $average;
+    }
 
     public function popData(Request $request){
 

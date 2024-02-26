@@ -17,6 +17,7 @@ class PopulationController extends Controller
 
     }
 
+
     public function get5SAI(){
 
         $get5SAI = BasePopulation::select(['5SAI'])

@@ -25,6 +25,7 @@ Route::get('/',function(){
 // Route::get('/areaPop', [AreaController::class,'areaPop']);
 Route::get('/popData',[AreaController::class,'popData']);
 Route::get('/year',[PopulationController::class,'year']);
+Route::get('/mapOptions',[AreaController::class,'mapOptions']);
 Route::get('/fiveage',[PopulationController::class,'get5SAI']);
 Route::get('/sedai',[PopulationController::class,'get3SEDAI']);
 
