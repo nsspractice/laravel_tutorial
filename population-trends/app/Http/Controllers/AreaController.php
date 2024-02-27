@@ -8,27 +8,6 @@ use App\Models\BasePopulation;
 
 class AreaController extends Controller
 {
-    // public function areaPop(){
-
-    //     $areaPop = BasePopulation::select([
-    //         'b.id',
-    //         'b.CHIIKINAME',
-    //         'b.5SAI',
-    //         'b.3SEDAI',
-    //         'b.YEAR',
-    //         'b.POPLATION',
-    //         'a.IDO',
-    //         'a.KEIDO',
-    //     ])
-    //     ->from('base_population as b')
-    //     ->join('area as a',function($join){
-    //         $join->on('b.JUSHOCD', '=', 'a.JUSHOCD')
-    //              ->on('b.CHIIKIKBN', '=', 'a.CHIIKIKBN');
-    //     })
-    //     ->get();
-
-    //     return $areaPop;
-    // }
     public function mapOptions() {
         $average = Area::selectRaw('AVG(IDO) AS AvgIDO,AVG(KEIDO) AS AvgKEIDO')
         ->from('area_code')
@@ -56,15 +35,6 @@ class AreaController extends Controller
 
         if($request->fiveage != null){
             $fiveage = explode(',', $request->fiveage);
-
-            for($i=0; $i < count($fiveage); $i++){
-                if($fiveage[$i] == "0"){
-                    $fiveage[$i] = "00";
-                }elseif($fiveage[$i] == "5"){
-                    $fiveage[$i] = "05";
-                }
-            }
-            
             $popData = $popData->wherein('ba.5SAI', $fiveage);
 
         }elseif($request->sedai != null){
