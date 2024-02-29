@@ -33,10 +33,14 @@ class AreaController extends Controller
         ->where('ba.YEAR', '=', $request->year)
         ->groupBy('ba.JUSHOCD','ba.CHIIKINAME','ar.IDO','ar.KEIDO');
 
+        if($request->chiiki != null){
+            $chiiki = explode(',', $request->chiiki);
+            $popData = $popData->wherein('ba.CHIIKINAME', $chiiki);
+        }
+
         if($request->fiveage != null){
             $fiveage = explode(',', $request->fiveage);
             $popData = $popData->wherein('ba.5SAI', $fiveage);
-
         }elseif($request->sedai != null){
             $sedai = explode(',', $request->sedai);
             $popData = $popData->wherein('ba.3SEDAI', $sedai);

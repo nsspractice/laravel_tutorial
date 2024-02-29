@@ -28,6 +28,6 @@ Route::get('/year',[PopulationController::class,'year']);
 Route::get('/mapOptions',[AreaController::class,'mapOptions']);
 Route::get('/fiveage',[PopulationController::class,'get5SAI']);
 Route::get('/sedai',[PopulationController::class,'get3SEDAI']);
-
-
+Route::get('/chiiki',[PopulationController::class,'getChiikiName']);
+// Route::get('/search',[PopulationController::class,'getSearchBox']);
 

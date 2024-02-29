@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\BasePopulation;
+use App\Models\Area;
 
 class PopulationController extends Controller
 {
@@ -66,4 +67,36 @@ class PopulationController extends Controller
         return $get3SEDAI;
 
     }
+
+    public function getChiikiName(Request $request){
+
+        $word = $request->chiiki;
+
+        $getChiikiName = Area::select(['CHIIKINAME'])
+            ->distinct('CHIIKINAME');
+
+        if($word != null){
+            $getChiikiName = $getChiikiName->where("CHIIKINAME", "LIKE", "%$word%");
+        }
+
+        $getChiikiName = $getChiikiName->get();
+        
+        return $getChiikiName;
+    }
+
+    // public function getSearchBox(Request $request){
+
+    //     $word = $request->searchBox;
+
+    //     $getSearchBox = Area::select(['CHIIKINAME'])
+    //         ->distinct('CHIIKINAME');
+        
+    //     if($word != null){
+    //         $getSearchBox = $getSearchBox->where("CHIIKINAME", "LIKE", "%$word%");
+    //     }
+
+    //     $getSearchBox = $getSearchBox->get();
+
+    //     return $getSearchBox;
+    // }
 }
