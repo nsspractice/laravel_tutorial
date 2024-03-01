@@ -27,22 +27,22 @@
             </div>
             <div class="form-content">
               <div class="form-radio">
-                <p><input type="radio" name="options" value="5age" v-model="selectedOption" @change="toggleCheckboxes" checked>年齢5歳階級</p>
-                <p><input type="radio" name="options" value="3sedai" v-model="selectedOption" @change="toggleCheckboxes">世代3区分</p>
+                <p class="radio-element"><input type="radio"  name="options" value="5age" v-model="selectedOption" @change="toggleCheckboxes" checked>年齢5歳階級</p>
+                <p class="radio-element"><input type="radio"  name="options" value="3sedai" v-model="selectedOption" @change="toggleCheckboxes">世代3区分</p>
               </div>
 
               <div id="scrollbar" class="scrollbar">
                 <div v-if="selectedOption === '5age'">
                   <div v-for="(fiveageName, index) in fiveagesName" class="fiveage-check" :key="index">
                     <input type="checkbox" :id="'fiveageName'+index" v-model="fiveageChecked" :value="fiveages[index]" @change="getFiveageChecked">
-                    <label :for="'fiveageName'+index">@{{ fiveageName }}</label>
+                    <label :for="'fiveageName'+index" class="check-element">@{{ fiveageName }}</label>
                   </div>
                 </div>
 
                 <div v-else-if="selectedOption === '3sedai'">
                   <div v-for="(sedaiName, index) in sedaisName" class="sedai-check" :key="index">
                     <input type="checkbox" :id="'sedai'+index" v-model="sedaiChecked" :value="sedais[index]" @change="getSedaiChecked">
-                    <label :for="'sedai'+index">@{{ sedaiName }}</label>
+                    <label :for="'sedai'+index" class="check-element">@{{ sedaiName }}</label>
                   </div>  
                 </div>
               </div>
@@ -60,7 +60,7 @@
               <div id="scrollbar" class="scrollbar">
                 <div v-for="(chiikiName, index) in chiikisName" class="chiiki-check" :key="index">
                     <input type="checkbox" :id="'chiiki'+index" v-model="chiikiChecked" :value="chiikis[index]" @change="getChiikiChecked">
-                    <label :for="'chiiki'+index">@{{ chiikiName }}</label>
+                    <label :for="'chiiki'+index" class="check-element">@{{ chiikiName }}</label>
                 </div>
               </div>
             </div>
@@ -68,7 +68,7 @@
         </div>
           <div class="col-5">
             <div class="form-group">
-              <label>年代</label>
+              <label class="form-title">年代</label>
                 <select class="form-control" v-model="yearLeft" @change="getPopDataLeft">
                   <option v-for="yearLeft in years" :value="yearLeft">@{{ yearLeft }} 年</option>
                 </select>
@@ -91,7 +91,7 @@
           </div>
           <div class="col-5">
             <div class="form-group">
-              <label>年代</label>
+              <label class="form-title">年代</label>
               <select class="form-control" v-model="yearRight" @change="getPopDataRight">
                 <option v-for="yearRight in years" :value="yearRight">@{{ yearRight }} 年</option>
               </select>
@@ -341,16 +341,31 @@
                     .then(response => response.json())
                     .then(data => {
 
-                      console.log(data);
-
                       //初期設定
                       this.markerLeft = [];
                       let indexArea = 0;
 
+                      let redIcon = L.icon({
+                        iconUrl: "https://esm.sh/leaflet@1.9.2/dist/images/marker-icon.png",
+                        iconRetinaUrl: "https://esm.sh/leaflet@1.9.2/dist/images/marker-icon-2x.png",
+                        shadowUrl: "https://esm.sh/leaflet@1.9.2/dist/images/marker-shadow.png",
+                        iconSize: [25, 41],
+                        iconAnchor: [12, 41],
+                        popupAnchor: [1, -34],
+                        tooltipAnchor: [16, -28],
+                        shadowSize: [41, 41],
+                        className: "icon-red", // <= ここでクラス名を指定
+                      });
+
                       // マーカー、ポップアップを追加する
                       if(this.selectedmarkerLeft === 'marker'){
                         while(indexArea < data.length){
-                          this.markerLeft.push(L.marker([data[indexArea].IDO,data[indexArea].KEIDO]).addTo(this.map_left));
+                          if(data[indexArea].population >= 10000){
+                            redIcon.options.className = "icon-red";
+                          }else{
+                            redIcon.options.className = "icon-green";
+                          }
+                          this.markerLeft.push(L.marker([data[indexArea].IDO,data[indexArea].KEIDO],{ icon: redIcon }).addTo(this.map_left));
                           this.markerLeft[indexArea].bindPopup('<b>'+data[indexArea].CHIIKINAME+'</b><br>'+data[indexArea].population+'人');
                           indexArea++;
                         }
@@ -381,9 +396,26 @@
                       this.markerRight = [];
                       let indexArea = 0;
 
+                      let redIcon = L.icon({
+                        iconUrl: "https://esm.sh/leaflet@1.9.2/dist/images/marker-icon.png",
+                        iconRetinaUrl: "https://esm.sh/leaflet@1.9.2/dist/images/marker-icon-2x.png",
+                        shadowUrl: "https://esm.sh/leaflet@1.9.2/dist/images/marker-shadow.png",
+                        iconSize: [25, 41],
+                        iconAnchor: [12, 41],
+                        popupAnchor: [1, -34],
+                        tooltipAnchor: [16, -28],
+                        shadowSize: [41, 41],
+                        className: "icon-red", // <= ここでクラス名を指定
+                      });
+
                       // マーカー、ポップアップを追加する    
                       if(this.selectedmarkerRight === 'marker'){
                         while(indexArea < data.length){
+                          if(data[indexArea].population >= 10000){
+                            redIcon.options.className = "icon-red";
+                          }else{
+                            redIcon.options.className = "icon-green";
+                          }
                           this.markerRight.push(L.marker([data[indexArea].IDO,data[indexArea].KEIDO]).addTo(this.map_right));
                           this.markerRight[indexArea].bindPopup('<b>'+data[indexArea].CHIIKINAME+'</b><br>'+data[indexArea].population+'人');
                           indexArea++;
@@ -406,7 +438,7 @@
               toggleCheckboxes(){
 
                 if(this.selectedOption === '5age'){
-                  var scrollHeight = document.getElementById('scrollbar').style.height = '240px';
+                  var scrollHeight = document.getElementById('scrollbar').style.height = '250px';
                   this.fiveageChecked = [null];
                   this.sedaiChecked = [];
                   this.fiveage_flag = 1;
@@ -424,10 +456,8 @@
               mapIniLeft(){
                 //ロード時にマーカーを全削除する
                 let indexDel = 0;
-                console.log(this.markerLeft);
                 while(indexDel < this.markerLeft.length){
                   this.map_left.removeLayer(this.markerLeft[indexDel]);
-                  console.log('削除1');
                   indexDel++;
                 }
               },
@@ -435,10 +465,8 @@
               mapIniRight(){
                 //ロード時にマーカーを全削除する
                 let indexDel = 0;
-                console.log(this.markerRight);
                 while(indexDel < this.markerRight.length){
                   this.map_right.removeLayer(this.markerRight[indexDel]);
-                  console.log('削除2');
                   indexDel++;
                 }
               },
